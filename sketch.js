@@ -1,4 +1,3 @@
-
 var phrases = [
 	"That's just wrong on so many levels.",
 	"Are you sure?",
@@ -21,6 +20,7 @@ var paddingH;
 var theVoice;
 	
 function setup() {
+	checkMobile();
 	createCanvas(windowWidth,windowHeight);
 	initBoxes(2,3);
 	initVoice();
@@ -96,6 +96,13 @@ function MsgBox(phrase, posX, posY){
 		}
 	};
 
+	this.checkForTouch = function(tX,tY){
+		if (tX > this.posX && tX < this.posX + this.boxWidth && tY > this.posY && tY < this.posY +this.boxHeight){
+			theVoice.speak(this.phrase);
+			theVoice.speaking = true;
+		}
+	};
+
 	this.draw = function(){
 		fill(curColor);
 		noStroke();
@@ -148,32 +155,32 @@ function speechEnded(){
 
 
 function touchEnded(){
-	if (!theVoice.speaking){
-		msgBoxes.forEach(function(msgBox){
-			msgBox.checkMouse();
-			if (msgBox.hovered){
-				theVoice.speak(msgBox.phrase);
-				theVoice.speaking = true;
-			}
-		});
-	}
-	else{
-		console.log("Sorry...");
+	if(isMobile){
+		if (!theVoice.speaking){
+			msgBoxes.forEach(function(msgBox){
+				msgBox.checkForTouch(touchX, touchY);
+			});
+		}
+		else{
+			console.log("Sorry...");
+		}
 	}
 }
 
 
 function mousePressed(){
-	if (!theVoice.speaking){
-		msgBoxes.forEach(function(msgBox){
-			if (msgBox.hovered){
-				theVoice.speaking = true;
-				theVoice.speak(msgBox.phrase);
-			}
-		});
-	}
-	else{
-		console.log("Sorry...");
+	if (!isMobile){
+		if (!theVoice.speaking){
+			msgBoxes.forEach(function(msgBox){
+				if (msgBox.hovered){
+					theVoice.speaking = true;
+					theVoice.speak(msgBox.phrase);
+				}
+			});
+		}
+		else{
+			console.log("Sorry...");
+		}
 	}
 }
 
