@@ -184,13 +184,17 @@ function mousePressed(){
 	}
 }
 
+var gridOne = true;
 function keyPressed(e){
 	//console.log(e);
 	if (keyCode === 49){
-		initBoxes(2,3);
-	}
-	if (keyCode === 50){
-		initBoxes(2,5);
+		gridOne = !gridOne;
+		if(gridOne){
+			initBoxes(2,3);
+		}
+		else{
+			initBoxes(2,5);
+		}
 	}
 }
 
