@@ -124,20 +124,17 @@
 
   // listVoices() - dump voice names to javascript console:
   p5.Speech.prototype.listVoices = function() {
-    var voiceList = [];
     if(this.isLoaded)
     {
       for(var i = 0;i<this.voices.length;i++)
       {
-        voiceList.push(this.voices[i]);
         console.log(this.voices[i].name);
       }
     }
     else
     {
-      console.log("p5.Speech: voices not loaded yet!");
+    	console.log("p5.Speech: voices not loaded yet!")
     }
-    return voiceList;
   };
 
   // setVoice() - assign voice to speech synthesizer, by name

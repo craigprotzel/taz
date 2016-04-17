@@ -85,10 +85,10 @@ function MsgBox(phrase, posX, posY){
 	};
 
 	this.checkMouse = function(){
-		if (mouseX > this.posX && mouseX < this.posX + this.boxWidth && mouseY > this.posY && mouseY < this.posY + this.boxHeight){
-				//console.log(this.phrase);
-				curColor = this.cHover;
-				this.hovered = true;
+		if (mouseX > this.posX && mouseX < this.posX + this.boxWidth && mouseY > this.posY && mouseY < this.posY +this.boxHeight){
+			//console.log(this.phrase);
+			curColor = this.cHover;
+			this.hovered = true;
 		}
 		else{
 			this.hovered = false;
@@ -104,7 +104,7 @@ function MsgBox(phrase, posX, posY){
 
 		if (this.boxWidth < 300){
 			textSize(18);
-			console.log("Small!");
+			//console.log("Small!");
 		}
 		else{
 			textSize(32);
@@ -146,8 +146,24 @@ function speechEnded(){
 	theVoice.speaking = false;
 }
 
-function mousePressed(){
 
+function touchEnded(){
+	if (!theVoice.speaking){
+		msgBoxes.forEach(function(msgBox){
+			msgBox.checkMouse();
+			if (msgBox.hovered){
+				theVoice.speak(msgBox.phrase);
+				theVoice.speaking = true;
+			}
+		});
+	}
+	else{
+		console.log("Sorry...");
+	}
+}
+
+
+function mousePressed(){
 	if (!theVoice.speaking){
 		msgBoxes.forEach(function(msgBox){
 			if (msgBox.hovered){
