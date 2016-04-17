@@ -50,7 +50,7 @@ function initVoice(){
 	//23 - Robot
 	//25 - US
 	//27 - UK
-	theVoice = new p5.Speech(27); // new P5.Speech object
+	theVoice = new p5.Speech(0); // new P5.Speech object
 	theVoice.onEnd = speechEnded;
 	theVoice.speaking = false;
 }
